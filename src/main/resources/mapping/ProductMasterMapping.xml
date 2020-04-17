@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ly.orderingsystem.mapper.ProductMasterMapper">
+
+    <resultMap id="BaseResultMap" type="com.ly.orderingsystem.model.ProductMaster">
+        <result column="PRODUCT_CODE" jdbcType="INTEGER" property="productCode"/>
+        <result  column="CATEGORY_NAME" jdbcType="VARCHAR" property="categoryName"/>
+        <result column="PRODUCT_NAME" jdbcType="VARCHAR" property="productName"/>
+        <result column="PRODUCT_DESC" jdbcType="VARCHAR" property="productDesc"/>
+        <result column="PRODUCT_PROVIDERID" jdbcType="INTEGER" property="productProviderid"/>
+        <result column="SUPPLY_PRICE" jdbcType="INTEGER" property="supplyPrice"/>
+        <result  column="BASICUNIT_NAME" jdbcType="VARCHAR" property="basicunitName"/>
+        <result  column="UNIT_NAME"  jdbcType="VARCHAR" property="unitName"/>
+        <result column="IMG_INFO" jdbcType="VARCHAR" property="imgInfo"/>
+        <result column="STATUS" jdbcType="INTEGER" property="status"/>
+    </resultMap>
+
+
+    <select id="selectByCode" parameterType="int" resultMap="BaseResultMap">
+         select p.PRODUCT_CODE,p.PRODUCT_NAME,p.PRODUCT_PROVIDERID,p.IMG_INFO,p.PRODUCT_DESC,p.SUPPLY_PRICE,p.`STATUS`,ca.CATEGORY_NAME,u1.UNIT_NAME as BASICUNIT_NAME,u2.UNIT_NAME,pu.DISCOUNT
+         from PRODUCT p
+         LEFT JOIN CATEGORY ca on p.CATEGORY_ID=ca.CATEGORY_ID
+		 LEFT JOIN product_unit pu on pu.PRODUCT_CODE=p.PRODUCT_CODE
+		 LEFT JOIN unit u1 on u1.UNIT_ID=pu.UNIT_ID
+		 LEFT JOIN unit u2 on u2.UNIT_ID=pu.BASICUNIT_ID
+		 where p.PRODUCT_CODE=#{productCode}
+    </select>
+
+    <select id="getProducts"  resultMap="BaseResultMap">
+      select p.PRODUCT_CODE,p.PRODUCT_NAME,p.PRODUCT_PROVIDERID,p.IMG_INFO,p.PRODUCT_DESC,p.SUPPLY_PRICE,p.`STATUS`,ca.CATEGORY_NAME,u1.UNIT_NAME as BASICUNIT_NAME,u2.UNIT_NAME,pu.DISCOUNT
+         from PRODUCT p
+         LEFT JOIN CATEGORY ca on p.CATEGORY_ID=ca.CATEGORY_ID
+		 LEFT JOIN product_unit pu on pu.PRODUCT_CODE=p.PRODUCT_CODE
+		 LEFT JOIN unit u1 on u1.UNIT_ID=pu.UNIT_ID
+		 LEFT JOIN unit u2 on u2.UNIT_ID=pu. BASICUNIT_ID
+		 limit #{page}, #{size}
+    </select>
+
+    <select id="getTotal" resultType="java.lang.Long">
+    select count(*) from PRODUCT
+    </select>
+
+    <select id="selectByParam" resultMap="BaseResultMap">
+    select p.PRODUCT_CODE,p.PRODUCT_NAME,p.PRODUCT_PROVIDERID,p.IMG_INFO,p.PRODUCT_DESC,p.SUPPLY_PRICE,p.`STATUS`,ca.CATEGORY_NAME,u1.UNIT_NAME as BASICUNIT_NAME,u2.UNIT_NAME,pu.DISCOUNT
+         from PRODUCT p
+         LEFT JOIN CATEGORY ca on p.CATEGORY_ID=ca.CATEGORY_ID
+		 LEFT JOIN product_unit pu on pu.PRODUCT_CODE=p.PRODUCT_CODE
+		 LEFT JOIN unit u1 on u1.UNIT_ID=pu.UNIT_ID
+		 LEFT JOIN unit u2 on u2.UNIT_ID=pu. BASICUNIT_ID
+		 <where>
+		     <if test="productCode != null and productCode != ''">
+                 and  p.PRODUCT_CODE=#{productCode}
+             </if>
+             <if test="productName != null and productName != ''">
+                 and p.PRODUCT_NAME=#{productName}
+             </if>
+             <if test="categoryName != null and categoryName != ''">
+                 and ca.CATEGORY_NAME=#{categoryName}
+             </if>
+             <if test="basicunitName != null and basicunitName != ''">
+                 and u1.UNIT_NAME=#{basicunitName}
+             </if>
+             <if test="unitName != null and unitName != ''">
+                and u2.UNIT_NAME=#{unitName}
+             </if>
+         </where>
+		 limit #{page}, #{size}
+    </select>
+
+    <select id="getTotalByParam" resultType="java.lang.Long">
+        select count(*)
+        from PRODUCT p
+        LEFT JOIN CATEGORY ca on p.CATEGORY_ID=ca.CATEGORY_ID
+        LEFT JOIN product_unit pu on pu.PRODUCT_CODE=p.PRODUCT_CODE
+        LEFT JOIN unit u1 on u1.UNIT_ID=pu.UNIT_ID
+        LEFT JOIN unit u2 on u2.UNIT_ID=pu. BASICUNIT_ID
+        <where>
+            <if test="productCode != null and productCode != ''">
+                and  p.PRODUCT_CODE=#{productCode}
+            </if>
+            <if test="productName != null and productName != ''">
+                and  p.PRODUCT_NAME=#{productName}
+            </if>
+            <if test="categoryName != null and categoryName != ''">
+                and  ca.CATEGORY_NAME=#{categoryName}
+            </if>
+            <if test="basicunitName != null and basicunitName != ''">
+                and  u1.UNIT_NAME=#{basicunitName}
+            </if>
+            <if test="unitName != null and unitName != ''">
+                and  u2.UNIT_NAME=#{unitName}
+            </if>
+        </where>
+    </select>
+
+
+</mapper>

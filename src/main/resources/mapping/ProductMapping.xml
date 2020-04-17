@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ly.orderingsystem.mapper.ProductMapper">
+    <resultMap id="BaseResultMap" type="com.ly.orderingsystem.entity.Product">
+        <result column="PRODUCT_CODE" jdbcType="INTEGER" property="productCode"/>
+        <result column="PRODUCT_NAME" jdbcType="VARCHAR" property="productName"/>
+        <result column="PRODUCT_DESC" jdbcType="VARCHAR" property="productDesc"/>
+        <result column="PRODUCT_PROVIDERID" jdbcType="INTEGER" property="productProviderid"/>
+        <result column="CATEGORY_ID" jdbcType="INTEGER" property="categoryId"/>
+        <result column="SUPPLY_PRICE" jdbcType="INTEGER" property="supplyPrice"/>
+        <result column="IMG_INFO" jdbcType="VARCHAR" property="imgInfo"/>
+        <result column="STATUS" jdbcType="INTEGER" property="status"/>
+    </resultMap>
+
+    <insert id="inster" parameterType="com.ly.orderingsystem.entity.Product">
+    insert into product (PRODUCT_CODE,PRODUCT_NAME,PRODUCT_DESC,CATEGORY_ID,PRODUCT_PROVIDERID,SUPPLY_PRICE,IMG_INFO,STATUS)
+    values (#{productCode},#{productName},#{productDesc},#{categoryId},#{productProviderid},#{supplyPrice},#{imgInfo},#{status})
+    </insert>
+
+    <delete id="deleteProductByCode" parameterType="int" >
+        delete from PRODUCT
+        WHERE PRODUCT_CODE=#{productCode}
+    </delete>
+
+    <update id="update" parameterType="com.ly.orderingsystem.entity.Product">
+    update PRODUCT set PRODUCT_NAME=#{productName},PRODUCT_DESC=#{productDesc},CATEGORY_ID=#{categoryId},
+    PRODUCT_PROVIDERID=#{productProviderid},SUPPLY_PRICE=#{supplyPrice},IMG_INFO=#{imgInfo},STATUS=#{status}
+    where PRODUCT_CODE=#{productCode}
+    </update>
+
+    <select id="selectByCategoryId" parameterType="int" resultMap="BaseResultMap">
+     select *
+     from PRODUCT
+     WHERE CATEGORY_ID=#{categoryId}
+    </select>
+
+    <update id="updateStatus">
+   update PRODUCT
+   set STATUS=#{status}
+   where PRODUCT_CODE=#{productCode}
+    </update>
+
+
+</mapper>

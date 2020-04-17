@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ly.orderingsystem.mapper.CategoryMapper">
+
+    <resultMap id="BaseResultMap" type="com.ly.orderingsystem.entity.Category">
+        <result column="CATEGORY_ID" jdbcType="INTEGER" property="categoryId"/>
+        <result column="CATEGORY_NAME" jdbcType="VARCHAR" property="categoryName"/>
+    </resultMap>
+
+
+    <select id="getIdByName" resultType="INTEGER">
+        SELECT CATEGORY_ID
+        FROM CATEGORY
+        WHERE CATEGORY_NAME=#{categoryName}
+    </select>
+
+    <select id="selectAll" resultMap="BaseResultMap">
+        select *
+        from CATEGORY
+         limit #{page}, #{size}
+    </select>
+
+    <select id="getTotal" resultType="java.lang.Long">
+    select count(*) from PRODUCT
+    </select>
+
+    <select id="selectById" resultMap="BaseResultMap">
+     select *
+     from CATEGORY
+     where CATEGORY_ID=#{categoryId}
+    </select>
+
+    <insert id="insert" parameterType="com.ly.orderingsystem.entity.Category">
+    insert into CATEGORY (CATEGORY_NAME) VALUES (#{categoryName})
+    </insert>
+
+    <update id="update" parameterType="com.ly.orderingsystem.entity.Category" >
+    update CATEGORY
+    set CATEGORY_NAME=#{categoryName}
+    where CATEGORY_ID=#{categoryId}
+    </update>
+
+    <delete id="deleteById" parameterType="int">
+    delete from CATEGORY
+    where CATEGORY_ID=#{categoryId}
+    </delete>
+
+</mapper>

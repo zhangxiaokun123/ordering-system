@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ly.orderingsystem.mapper.UnitMapper">
+    <resultMap id="BaseResultMap" type="com.ly.orderingsystem.entity.Unit">
+        <result column="UNIT_ID" jdbcType="INTEGER" property="unitId"/>
+        <result column="UNIT_NAME" jdbcType="VARCHAR" property="unitName"/>
+    </resultMap>
+
+    <select id="getIdByName" resultType="INTEGER">
+    select UNIT_ID
+    from UNIT
+    where UNIT_NAME=#{b}
+    </select>
+
+    <select id="getIdByName2" resultType="INTEGER">
+    select UNIT_ID
+    from UNIT
+    where UNIT_NAME=#{u}
+    </select>
+
+    <select id="selectAll" resultMap="BaseResultMap">
+    select * from  UNIT
+    limit #{page}, #{size}
+    </select>
+
+    <select id="getTotal" resultType="java.lang.Long">
+    select count(*) from UNIT
+    </select>
+
+    <select id="selectById" resultMap="BaseResultMap">
+    select * from  UNIT
+    where UNIT_ID=#{unitId}
+    </select>
+
+    <insert id="insert" parameterType="com.ly.orderingsystem.entity.Unit">
+    insert into UNIT (UNIT_NAME) VALUES (#{unitName})
+    </insert>
+
+    <update id="update" parameterType="com.ly.orderingsystem.entity.Unit">
+     update UNIT
+     set UNIT_NAME=#{unitName}
+     where UNIT_ID=#{unitId}
+    </update>
+
+    <delete id="deleteByUnitId" parameterType="int">
+        delete from UNIT
+        where UNIT_ID=#{unitId}
+    </delete>
+</mapper>

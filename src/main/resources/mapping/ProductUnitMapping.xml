@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ly.orderingsystem.mapper.ProductUnitMapper">
+    <resultMap id="BaseResultMap" type="com.ly.orderingsystem.entity.ProductUnit">
+        <result column="PRODUCT_CODE" jdbcType="INTEGER" property="productCode"/>
+        <result column="BASICUNIT_ID" jdbcType="INTEGER" property="basicunitId"/>
+        <result column="UNIT_ID" jdbcType="INTEGER" property="unitId"/>
+        <result column="DISCOUNT" jdbcType="INTEGER" property="discount"/>
+    </resultMap>
+
+    <insert id="inster" parameterType="com.ly.orderingsystem.entity.ProductUnit">
+    insert into PRODUCT_UNIT (PRODUCT_CODE,BASICUNIT_ID,UNIT_ID,DISCOUNT)
+    values (#{productCode},#{basicunitId},#{unitId},#{discount})
+    </insert>
+
+    <delete id="deleteProductUntilByCode" parameterType="int" >
+        delete from PRODUCT_UNIT
+        WHERE PRODUCT_CODE=#{productCode}
+    </delete>
+
+    <update id="update" parameterType="com.ly.orderingsystem.entity.ProductUnit">
+    update PRODUCT_UNIT
+    set
+     BASICUNIT_ID=#{basicunitId},UNIT_ID=#{unitId},DISCOUNT=#{discount}
+     where PRODUCT_CODE=#{productCode}
+    </update>
+
+    <select id="seleteByUnitId" resultMap="BaseResultMap">
+    select *
+    from PRODUCT_UNIT pu
+    where BASICUNIT_ID=#{unitId}
+    or UNIT_ID=#{unitId}
+    </select>
+
+</mapper>
