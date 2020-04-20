@@ -56,6 +56,9 @@ public class ProductServiceImp implements ProductService {
     @Transactional
     public String addProduct(ProductMaster productMaster) {
         //先查商品店编号是否存在
+            Product p=productMapper.selectByCode(productMaster.getProductCode());
+        if (p == null) {
+
             //两次插入
             String b = productMaster.getBasicunitName();
             String u = productMaster.getUnitName();
@@ -80,7 +83,10 @@ public class ProductServiceImp implements ProductService {
             } else {
                 String message = String.format("插入数据成功");
                 return message;
-            }
+            }}else {
+            String message = String.format("插入数据失败,编号已存在");
+            return message;
+        }
         }
 
 

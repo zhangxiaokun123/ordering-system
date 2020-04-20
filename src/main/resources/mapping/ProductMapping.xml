@@ -40,5 +40,11 @@
    where PRODUCT_CODE=#{productCode}
     </update>
 
+    <select id="selectByCode" parameterType="int" resultMap="BaseResultMap">
+    select  *
+    from PRODUCT
+    where PRODUCT_CODE=#{productCode}
+    </select>
+
 
 </mapper>
