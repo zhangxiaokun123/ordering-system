@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ly.orderingsystem.mapper.StoreMapper">
+     <resultMap id="BaseResultMap" type="com.ly.orderingsystem.entity.Store">
+         <result column="STORE_ID" jdbcType="INTEGER" property="storeId"/>
+         <result column="STORE_NAME" jdbcType="VARCHAR" property="storeName"/>
+         <result column="AREA_ID" jdbcType="INTEGER" property="areaId"/>
+         <result column="ADDRESS" jdbcType="VARCHAR" property="address"/>
+         <result column="ROUTE_ID" jdbcType="INTEGER" property="routeId"/>
+         <result column="STORE_TYPE" jdbcType="INTEGER" property="storeType"/>
+         <result column="STATUS" jdbcType="INTEGER" property="status"/>
+     </resultMap>
+
+    <insert id="insert" parameterType="com.ly.orderingsystem.entity.Store">
+    insert into STORE (STORE_ID,STORE_NAME,AREA_ID,ADDRESS,ROUTE_ID,SRORE_TYPE,STATUS)
+    VALUES (#{storeId},#{storeName},#{areaId},#{address},#{roteId},#{sroreType},#{status})
+    </insert>
+
+    <select id="selectById" parameterType="int" resultMap="BaseResultMap">
+    select *
+    from STORE
+    where STORE_ID=#{storeId}
+    </select>
+
+    <update id="update" parameterType="com.ly.orderingsystem.entity.Store">
+    update
+    STORE
+    set
+    STORE_NAME=#{storeName},AREA_ID=#{areaId},ADDRESS=#{address},ROUTE_ID=#{routeId},SRORE_TYPE=#{storeType},STATUS=#{status}
+    where
+    STORE_ID=#{storeId}
+    </update>
+
+
+</mapper>

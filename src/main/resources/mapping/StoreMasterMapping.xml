@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ly.orderingsystem.mapper.StoreMasterMapper">
+    <resultMap id="BaseResultMap" type="com.ly.orderingsystem.model.StoreMaster">
+        <result column="STORE_ID" jdbcType="INTEGER" property="storeId"/>
+        <result column="STORE_NAME" jdbcType="VARCHAR" property="storeName"/>
+        <result column="AREA_NAME" jdbcType="VARCHAR" property="areaName"/>
+        <result column="ADDRESS" jdbcType="VARCHAR" property="address"/>
+        <result column="ROUTE_NAME" jdbcType="VARCHAR" property="routeName"/>
+        <result column="TYPE_NAME" jdbcType="VARCHAR" property="storeType"/>
+        <result column="STATUS" jdbcType="INTEGER" property="status"/>
+    </resultMap>
+    <select id="selectAll" resultMap="BaseResultMap">
+        SELECT s.STORE_ID,s.STORE_NAME,a.AREA_NAME,s.ADDRESS,r.ROUTE_NAME,st.TYPE_NAME,s.`STATUS`
+        FROM store s
+        LEFT JOIN area a on s.AREA_ID=a.AREA_ID
+        LEFT JOIN route r on s.ROUTE_ID=r.ROUTE_ID
+        LEFT JOIN store_type st on s.SRORE_TYPE=st.TYPE_ID
+        limit #{page}, #{size}
+    </select>
+
+    <select id="getTotal" resultType="java.lang.Long">
+        select count(*) from store
+    </select>
+
+    <select id="selectById" parameterType="int" resultMap="BaseResultMap">
+        SELECT s.STORE_ID,s.STORE_NAME,a.AREA_NAME,s.ADDRESS,r.ROUTE_NAME,st.TYPE_NAME,s.`STATUS`
+        FROM store s
+        LEFT JOIN area a on s.AREA_ID=a.AREA_ID
+        LEFT JOIN route r on s.ROUTE_ID=r.ROUTE_ID
+        LEFT JOIN store_type st on s.SRORE_TYPE=st.TYPE_ID
+        where s.STORE_ID=#{storeId}
+    </select>
+
+</mapper>
