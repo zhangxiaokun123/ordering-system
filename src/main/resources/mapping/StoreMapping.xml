@@ -12,8 +12,8 @@
      </resultMap>
 
     <insert id="insert" parameterType="com.ly.orderingsystem.entity.Store">
-    insert into STORE (STORE_ID,STORE_NAME,AREA_ID,ADDRESS,ROUTE_ID,SRORE_TYPE,STATUS)
-    VALUES (#{storeId},#{storeName},#{areaId},#{address},#{roteId},#{sroreType},#{status})
+    insert into STORE (STORE_ID,STORE_NAME,AREA_ID,ADDRESS,ROUTE_ID,STORE_TYPE,STATUS)
+    VALUES (#{storeId},#{storeName},#{areaId},#{address},#{routeId},#{storeType},#{status})
     </insert>
 
     <select id="selectById" parameterType="int" resultMap="BaseResultMap">
@@ -26,7 +26,7 @@
     update
     STORE
     set
-    STORE_NAME=#{storeName},AREA_ID=#{areaId},ADDRESS=#{address},ROUTE_ID=#{routeId},SRORE_TYPE=#{storeType},STATUS=#{status}
+    STORE_NAME=#{storeName},AREA_ID=#{areaId},ADDRESS=#{address},ROUTE_ID=#{routeId},STORE_TYPE=#{storeType},STATUS=#{status}
     where
     STORE_ID=#{storeId}
     </update>

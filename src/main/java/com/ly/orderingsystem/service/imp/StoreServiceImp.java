@@ -48,6 +48,7 @@ public class StoreServiceImp implements StoreService {
     @Override
     public String addStore(StoreMaster storeMaster) {
         Store s=storeMapper.selectById(storeMaster.getStoreId());
+        System.out.println(s);
         if(s==null){
         Store store=new Store(storeMaster.getStoreId(),storeMaster.getStoreName(),
                                areaMapper.selectIdByName(storeMaster.getAreaName()),
