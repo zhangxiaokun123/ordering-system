@@ -55,31 +55,39 @@ public class ProductServiceImp implements ProductService {
     @Override
     @Transactional
     public String addProduct(ProductMaster productMaster) {
-        //两次插入
-        String b=productMaster.getBasicunitName();
-        String u=productMaster.getUnitName();
-        Integer productCode=productMaster.getProductCode();
-        Integer d=productMaster.getDiscount();
-        ProductUnit productUnit=new ProductUnit();
-        productUnit.setProductCode(productCode);
-        productUnit.setDiscount(d);
-        productUnit.setBasicunitId(unitMapper.getIdByName(b));
-        productUnit.setUnitId(unitMapper.getIdByName2(u));
+        //先查商品店编号是否存在
+        Product p = productMapper.selectByCode(productMaster.getProductCode());
+        if (p == null) {
+            //两次插入
+            String b = productMaster.getBasicunitName();
+            String u = productMaster.getUnitName();
+            Integer productCode = productMaster.getProductCode();
+            Integer d = productMaster.getDiscount();
+            ProductUnit productUnit = new ProductUnit();
+            productUnit.setProductCode(productCode);
+            productUnit.setDiscount(d);
+            productUnit.setBasicunitId(unitMapper.getIdByName(b));
+            productUnit.setUnitId(unitMapper.getIdByName2(u));
 
-        Product product=new Product(productMaster.getProductCode(),productMaster.getProductName(),
-                productMaster.getProductDesc(),productMaster.getProductProviderid(),
-                productMaster.getSupplyPrice(),productMaster.getImgInfo(),
-                productMaster.getStatus(),categoryMapper.getIdByName(productMaster.getCategoryName()));
+            Product product = new Product(productMaster.getProductCode(), productMaster.getProductName(),
+                    productMaster.getProductDesc(), productMaster.getProductProviderid(),
+                    productMaster.getSupplyPrice(), productMaster.getImgInfo(),
+                    productMaster.getStatus(), categoryMapper.getIdByName(productMaster.getCategoryName()));
 
-               Integer j=productMapper.inster(product);
-               Integer i=productUnitMapper.inster(productUnit);
-        if (i+j<2){
-            String message=String.format("插入数据失败");
+            Integer j = productMapper.inster(product);
+            Integer i = productUnitMapper.inster(productUnit);
+            if (i + j < 2) {
+                String message = String.format("插入数据失败");
+                return message;
+            } else {
+                String message = String.format("插入数据成功");
+                return message;
+            }
+        }else {
+            String message = String.format("插入失败,商品编号已存在");
             return message;
-        }else{
-            String message=String.format("插入数据成功");
-            return message;}
-    }
+        }
+        }
 
     @Override
     @Transactional

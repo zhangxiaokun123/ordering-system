@@ -19,7 +19,7 @@ public class Store {
                     STORE_ID             INT NOT NULL,
                     STORE_NAME           VARCHAR(20) NOT NULL,
     AREA                 VARCHAR(10) NOT NULL,
-    ADRESS               VARCHAR(30) NOT NULL,
+    ADDRESS               VARCHAR(30) NOT NULL,
     ROUTE_ID             INT NOT NULL,
     SRORE_TYPE           INT NOT NULL,
     STATUS               TINYINT NOT NULL,
@@ -30,13 +30,13 @@ public class Store {
 
         private String storeName;//门店名称
 
-        private String area;//所属区域
+        private Integer areaId;//所属区域
 
-        private Integer address;//门店地址
+        private String address;//门店地址
 
-        private Integer roteId;//路线ID
+        private Integer routeId;//路线ID
 
-        private Integer sroreType;//门店类型
+        private Integer storeType;//门店类型
 
         private Integer status;//门店状态
 

@@ -19,4 +19,6 @@ public interface ProductMapper {
     List<Product> selectByCategoryId(Integer categoryId);
 
     Integer updateStatus(@Param("productCode") Integer productCode, @Param("status") Integer status);
+
+    Product selectByCode(Integer productCode);
 }
