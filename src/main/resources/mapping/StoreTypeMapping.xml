@@ -1,9 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ly.orderingsystem.mapper.StoreTypeMapper">
+    <resultMap id="BaseResultMap" type="com.ly.orderingsystem.entity.StoreType">
+        <result column="TYPE_ID" jdbcType="INTEGER" property="typeId"/>
+        <result column="TYPE_NAME" jdbcType="VARCHAR" property="typeName"/>
+    </resultMap>
     <select id="selectIdByName" resultType="INTEGER">
      select TYPE_ID
      FROM  STORE_TYPE
      WHERE TYPE_NAME=#{storeType}
     </select>
+    <select id="selectAll" resultMap="BaseResultMap">
+      select *
+      from STORE_TYPE
+      limit #{page}, #{size}
+    </select>
+    <select id="getTotal" resultType="java.lang.Long">
+       select count(*)
+       from STORE_TYPE
+    </select>
+    <select id="selectIdById" resultMap="BaseResultMap">
+        select *
+        from STORE_TYPE
+        where TYPE_ID=#{typeId}
+    </select>
+    <insert id="insert" parameterType="com.ly.orderingsystem.entity.StoreType">
+        insert into STORE_TYPE (TYPE_NAME) values (#{typeName})
+    </insert>
+    <update id="update" parameterType="com.ly.orderingsystem.entity.StoreType">
+        update STORE_TYPE
+        set TYPE_NAME=#{typeName}
+        where TYPE_ID=#{typeId}
+    </update>
+
+    <delete id="deleteById" parameterType="int">
+        delete from STORE_TYPE
+        where TYPE_ID=#{typeId}
+    </delete>
+
 </mapper>

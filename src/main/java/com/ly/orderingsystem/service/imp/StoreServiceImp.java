@@ -3,12 +3,14 @@ package com.ly.orderingsystem.service.imp;
 import com.ly.orderingsystem.entity.Store;
 import com.ly.orderingsystem.mapper.*;
 import com.ly.orderingsystem.model.Page;
+import com.ly.orderingsystem.model.RouteMaster;
 import com.ly.orderingsystem.model.StoreMaster;
 import com.ly.orderingsystem.service.StoreService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class StoreServiceImp implements StoreService {
@@ -48,7 +50,6 @@ public class StoreServiceImp implements StoreService {
     @Override
     public String addStore(StoreMaster storeMaster) {
         Store s=storeMapper.selectById(storeMaster.getStoreId());
-        System.out.println(s);
         if(s==null){
         Store store=new Store(storeMaster.getStoreId(),storeMaster.getStoreName(),
                                areaMapper.selectIdByName(storeMaster.getAreaName()),
@@ -88,5 +89,33 @@ public class StoreServiceImp implements StoreService {
             String message=String.format("修改数据成功");
             return message;}
 
+    }
+
+    @Override
+    public String deleteById(Integer storeId) {
+        Integer i=storeMapper.deleteById(storeId);
+        if (i<1){
+            String message=String.format("删除数据失败");
+            return message;
+        }else{
+            String message=String.format("删除数据成功");
+            return message;}
+    }
+
+    @Override
+    public Page selectBySearch(Integer page, Integer size, Map<String, Object> searchParam) {
+        Page pageEntity=new Page();
+        //默认从零开始
+        if (page != null && size != null) {
+            page = (page-1)*size;
+        }
+        searchParam.put("page",page);
+        searchParam.put("size",size);
+        //获取门店信息
+        List<StoreMaster> storeMasters=storeMasterMapper.selectBySearch(searchParam);
+        pageEntity.setData(storeMasters);
+        Long total=storeMasterMapper.selectTotalBySearch(searchParam);
+        pageEntity.setTotal(total);
+        return pageEntity;
     }
 }

@@ -15,7 +15,7 @@
         FROM store s
         LEFT JOIN area a on s.AREA_ID=a.AREA_ID
         LEFT JOIN route r on s.ROUTE_ID=r.ROUTE_ID
-        LEFT JOIN store_type st on s.SRORE_TYPE=st.TYPE_ID
+        LEFT JOIN store_type st on s.STORE_TYPE=st.TYPE_ID
         limit #{page}, #{size}
     </select>
 
@@ -28,8 +28,58 @@
         FROM store s
         LEFT JOIN area a on s.AREA_ID=a.AREA_ID
         LEFT JOIN route r on s.ROUTE_ID=r.ROUTE_ID
-        LEFT JOIN store_type st on s.SRORE_TYPE=st.TYPE_ID
+        LEFT JOIN store_type st on s.STORE_TYPE=st.TYPE_ID
         where s.STORE_ID=#{storeId}
     </select>
+
+    <select id="selectBySearch" resultMap="BaseResultMap">
+        SELECT s.STORE_ID,s.STORE_NAME,a.AREA_NAME,s.ADDRESS,r.ROUTE_NAME,st.TYPE_NAME,s.`STATUS`
+        FROM store s
+        LEFT JOIN area a on s.AREA_ID=a.AREA_ID
+        LEFT JOIN route r on s.ROUTE_ID=r.ROUTE_ID
+        LEFT JOIN store_type st on s.STORE_TYPE=st.TYPE_ID
+        <where>
+            <if test="storeId != null and storeId != ''">
+                and  s.STORE_ID=#{storeId}
+            </if>
+            <if test="storeName != null and storeName != ''">
+                and s.STORE_NAME=#{storeName}
+            </if>
+            <if test="areaName != null and areaName != ''">
+                and a.AREA_NAME=#{areaName}
+            </if>
+            <if test="routeName != null and routeName != ''">
+                and r.ROUTE_NAME=#{routeName}
+            </if>
+            <if test="storeType != null and storeType != ''">
+                and st.TYPE_NAME=#{storeType}
+            </if>
+        </where>
+        limit #{page}, #{size}
+    </select>
+            <select id="selectTotalBySearch" resultType="java.lang.Long">
+                select count(*)
+                FROM store s
+                LEFT JOIN area a on s.AREA_ID=a.AREA_ID
+                LEFT JOIN route r on s.ROUTE_ID=r.ROUTE_ID
+                LEFT JOIN store_type st on s.STORE_TYPE=st.TYPE_ID
+                <where>
+                    <if test="storeId != null and storeId != ''">
+                        and  s.STORE_ID=#{storeId}
+                    </if>
+                    <if test="storeName != null and storeName != ''">
+                        and s.STORE_NAME=#{storeName}
+                    </if>
+                    <if test="areaName != null and areaName != ''">
+                        and a.AREA_NAME=#{areaName}
+                    </if>
+                    <if test="routeName != null and routeName != ''">
+                        and r.ROUTE_NAME=#{routeName}
+                    </if>
+                    <if test="storeType != null and storeType != ''">
+                        and st.TYPE_NAME=#{storeType}
+                    </if>
+                </where>
+            </select>
 
 </mapper>

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ly.orderingsystem.mapper.RouteMasterMapper">
+    <resultMap id="BaseResultMap" type="com.ly.orderingsystem.model.RouteMaster">
+        <result column="ROUTE_ID" jdbcType="INTEGER" property="routeId"/>
+        <result column="ROUTE_NAME" jdbcType="VARCHAR" property="routeName"/>
+        <result column="DRIVER_NAME" jdbcType="VARCHAR" property="driverName"/>
+        <result column="DRIVER_PHONENUMBER" jdbcType="VARCHAR" property="phoneNumber"/>
+        <result column="DC_NAME" jdbcType="VARCHAR" property="dcName"/>
+    </resultMap>
+    <select id="selectAll" resultMap="BaseResultMap">
+    select r.ROUTE_ID,r.ROUTE_NAME,r.DRIVER_NAME,r.DRIVER_PHONENUMBER,dc.DC_NAME
+    from ROUTE r
+    LEFT JOIN DISTRIBUTION_CENTER dc on dc.DC_ID=r.DC_ID
+    limit #{page}, #{size}
+    </select>
+
+    <select id="getTotal" resultType="java.lang.Long">
+        select count(*) from ROUTE
+    </select>
+
+    <select id="selectById" parameterType="int" resultMap="BaseResultMap">
+      select r.ROUTE_ID,r.ROUTE_NAME,r.DRIVER_NAME,r.DRIVER_PHONENUMBER,dc.DC_NAME
+      from ROUTE r
+      LEFT JOIN DISTRIBUTION_CENTER dc on dc.DC_ID=r.DC_ID
+      where ROUTE_ID=#{routeId}
+    </select>
+
+    <select id="getRoutesBySearch" resultMap="BaseResultMap">
+        select r.ROUTE_ID,r.ROUTE_NAME,r.DRIVER_NAME,r.DRIVER_PHONENUMBER,dc.DC_NAME
+        from ROUTE r
+        LEFT JOIN DISTRIBUTION_CENTER dc on dc.DC_ID=r.DC_ID
+        <where>
+        <if test="routeName != null and routeName != ''">
+            and  r.ROUTE_NAME=#{routeName}
+        </if>
+        <if test="dcName != null and dcName != ''">
+            and dc.DC_NAME=#{dcName}
+        </if>
+        </where>
+        limit #{page}, #{size}
+    </select>
+
+    <select id="getTotalBySearch" resultType="java.lang.Long">
+        select count(*)
+        from ROUTE r
+        LEFT JOIN DISTRIBUTION_CENTER dc on dc.DC_ID=r.DC_ID
+        <where>
+            <if test="routeName != null and routeName != ''">
+                and  r.ROUTE_NAME=#{routeName}
+            </if>
+            <if test="dcName != null and dcName != ''">
+                and dc.DC_NAME=#{dcName}
+            </if>
+        </where>
+    </select>
+
+</mapper>

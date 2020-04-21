@@ -1,5 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ly.orderingsystem.mapper.DistributionCenterMapper">
+    <resultMap id="BaseResultMap" type="com.ly.orderingsystem.entity.DistributionCenter">
+        <result column="DC_ID" jdbcType="INTEGER" property="dcId"/>
+        <result column="DC_NAME" jdbcType="VARCHAR" property="dcName"/>
+        <result column="ADRESS" jdbcType="VARCHAR" property="adress"/>
+        <result column="HEAD_NAME" jdbcType="VARCHAR" property="headName"/>
+        <result column="PHONE_NUMBER" jdbcType="VARCHAR" property="phoneNumber"/>
+    </resultMap>
 
+    <select id="selectIdByName" resultType="INTEGER">
+        select DC_ID
+        from DISTRIBUTION_CENTER
+        where DC_NAME=#{dcName}
+    </select>
 </mapper>

@@ -32,4 +32,20 @@
     </update>
 
 
+    <delete id="deleteById" parameterType="int">
+    delete from STORE
+    where STORE_ID=#{storeId}
+    </delete>
+
+    <select id="selectByRouteId" parameterType="int" resultMap="BaseResultMap">
+        select *
+        from STORE
+        where ROUTE_ID=#{routeId}
+    </select>
+
+    <select id="selectByTypeId" parameterType="int" resultMap="BaseResultMap">
+        select *
+        from STORE
+        where STORE_TYPE=#{storeType}
+    </select>
 </mapper>

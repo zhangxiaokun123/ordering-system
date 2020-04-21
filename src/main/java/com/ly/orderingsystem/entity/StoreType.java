@@ -21,5 +21,5 @@ public class StoreType {
         private Integer typeId;//门店类型Id
 
 
-        private Integer typeName;//类型名称
+        private String typeName;//类型名称
 }
