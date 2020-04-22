@@ -19,4 +19,6 @@ public interface StoreMapper {
     List<Store> selectByRouteId(Integer routeId);
 
     List<Store> selectByTypeId(Integer typeId);
+
+    List<Store> selectByAreaId(Integer areaId);
 }

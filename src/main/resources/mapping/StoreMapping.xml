@@ -48,4 +48,10 @@
         from STORE
         where STORE_TYPE=#{storeType}
     </select>
+
+    <select id="selectByAreaId" parameterType="int" resultMap="BaseResultMap">
+        select *
+        from STORE
+        where AREA_ID=#{areaId}
+    </select>
 </mapper>

@@ -29,4 +29,10 @@
         delete from  ROUTE
         where ROUTE_ID=#{routeId}
     </delete>
+
+    <select id="selectByDcId" resultMap="BaseResultMap">
+        select *
+        from ROUTE
+        where DC_ID=#{dcId}
+    </select>
 </mapper>

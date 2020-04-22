@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ly.orderingsystem.mapper.AreaMasterMapper">
+    <resultMap id="BaseResultMap" type="com.ly.orderingsystem.model.AreaMaster">
+        <result column="AREA_ID" jdbcType="INTEGER" property="areaId"/>
+        <result column="AREA_NAME" jdbcType="VARCHAR" property="areaName"/>
+        <result column="CITY_NAME" jdbcType="INTEGER" property="cityName"/>
+    </resultMap>
+
+    <select id="seletAll" resultMap="BaseResultMap">
+        select *
+        from AREA a
+        LEFT JOIN CITY ci ON ci.CITY_ID=a.CITY_ID
+        limit #{page}, #{size}
+    </select>
+
+    <select id="getTotal" resultType="java.lang.Long">
+        select count(*)
+        from AREA a
+        LEFT JOIN CITY ci ON ci.CITY_ID=a.CITY_ID
+    </select>
+
+    <select id="selectById" parameterType="int" resultMap="BaseResultMap">
+        select *
+        from AREA a
+        LEFT JOIN CITY ci ON ci.CITY_ID=a.CITY_ID
+        where a.AREA_ID=#{areaId}
+    </select>
+
+</mapper>

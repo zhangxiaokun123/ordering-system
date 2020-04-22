@@ -1,4 +1,53 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.ly.orderingsystem.mapper.CityMapper">
+    <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    <mapper namespace="com.ly.orderingsystem.mapper.CityMapper">
+        <resultMap id="BaseResultMap" type="com.ly.orderingsystem.entity.City">
+            <result column="CITY_ID" jdbcType="INTEGER" property="cityId"/>
+            <result column="CITY_NAME" jdbcType="VARCHAR" property="cityName"/>
+        </resultMap>
+
+    <select id="seletAll" resultMap="BaseResultMap">
+       select *
+       from CITY
+        limit #{page}, #{size}
+    </select>
+
+    <select id="getTotal" resultType="java.lang.Long">
+        select count(*)
+        from CITY
+    </select>
+
+    <select id="selectById" resultMap="BaseResultMap">
+        select *
+        from CITY
+        where CITY_ID=#{cityId}
+    </select>
+
+    <select id="getCityByName" resultMap="BaseResultMap">
+        select *
+        from CITY
+        where CITY_NAME=#{cityName}
+    </select>
+
+    <insert id="insert" parameterType="com.ly.orderingsystem.entity.City">
+        insert into CITY (CITY_NAME) values (#{cityName})
+    </insert>
+
+    <update id="update" parameterType="com.ly.orderingsystem.entity.City">
+        update CITY
+        set   CITY_NAME=#{cityName}
+        where CITY_ID=#{cityId}
+    </update>
+
+    <delete id="deleteById" parameterType="int">
+            delete from CITY
+            where CITY_ID=#{cityId}
+    </delete>
+
+    <select id="getIdByName" resultType="INTEGER">
+            select CITY_ID
+            from CITY
+            where CITY_NAME=#{cityName}
+    </select>
+
 </mapper>

@@ -14,4 +14,38 @@
         from DISTRIBUTION_CENTER
         where DC_NAME=#{dcName}
     </select>
+
+    <select id="selectAll" resultMap="BaseResultMap">
+      select *
+      from DISTRIBUTION_CENTER
+      limit #{page}, #{size}
+    </select>
+
+    <select id="getTotal" resultType="java.lang.Long">
+        select count(*)
+        from DISTRIBUTION_CENTER
+    </select>
+
+    <select id="selectById" resultMap="BaseResultMap">
+        select *
+        from DISTRIBUTION_CENTER
+        where DC_ID=#{dcId}
+    </select>
+
+    <insert id="insert" parameterType="com.ly.orderingsystem.entity.DistributionCenter">
+        insert into DISTRIBUTION_CENTER (DC_NAME,ADRESS,HEAD_NAME,PHONE_NUMBER)
+        values (#{dcName},#{adress},#{headName},#{phoneNumber})
+    </insert>
+
+    <delete id="delete" parameterType="int">
+        delete from DISTRIBUTION_CENTER
+        where DC_ID=#{dcId}
+    </delete>
+
+    <update id="update" parameterType="com.ly.orderingsystem.entity.DistributionCenter">
+        update DISTRIBUTION_CENTER
+        set DC_NAME=#{dcName},ADRESS=#{adress},HEAD_NAME=#{headName},PHONE_NUMBER=#{phoneNumber}
+        where DC_ID=#{dcId}
+    </update>
+
 </mapper>
