@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ly.orderingsystem.mapper.UserMapper">
+    <resultMap id="BaseResultMap" type="com.ly.orderingsystem.entity.User">
+        <result column="ID" jdbcType="INTEGER" property="userId"/>
+        <result column="USERNAME" jdbcType="VARCHAR" property="userName"/>
+        <result column="PASSWORD" jdbcType="VARCHAR" property="passWord"/>
+        <result column="UNAME" jdbcType="VARCHAR" property="uname"/>
+        <result column="MAIL" jdbcType="VARCHAR" property="mail"/>
+        <result column="PHONE" jdbcType="VARCHAR" property="phone"/>
+        <result column="REMARK" jdbcType="VARCHAR" property="remark"/>
+        <result column="STATUS" jdbcType="INTEGER" property="status"/>
+    </resultMap>
+
+    <select id="selectByUserName" resultMap="BaseResultMap">
+        select * from  USER_TABLE
+        where USERNAME=#{userName}
+    </select>
+
+
+    <insert id="insert" parameterType="com.ly.orderingsystem.entity.User">
+        insert into USER_TABLE (USERNAME,PASSWORD,UNAME,MAIL,PHONE,REMARK,STATUS)
+        values (#{userName},#{passWord},#{uname},#{mail},#{phone},#{remark},#{status})
+    </insert>
+
+
+</mapper>
