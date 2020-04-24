@@ -11,6 +11,7 @@ public interface UserMapper {
 
     Integer insert(User user);
 
-    List<User> selectByUserName(String userName);
+    User selectByUserName(String userName);
 
+    Integer update(String userName, String passWord);
 }

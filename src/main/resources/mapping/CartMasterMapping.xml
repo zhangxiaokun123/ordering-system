@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ly.orderingsystem.mapper.CartMasterMapper">
+    <resultMap id="BaseResultMap" type="com.ly.orderingsystem.model.CartMaster">
+        <result column="ID" jdbcType="INTEGER" property="id"/>
+        <result column="USER_NAME" jdbcType="VARCHAR" property="userName"/>
+        <result column="PRODUCT_CODE" jdbcType="INTEGER" property="productCode"/>
+        <result column="PRODUCT_NUMBER" jdbcType="INTEGER" property="productNumber"/>
+        <result column="STATUS" jdbcType="INTEGER" property="status"/>
+        <result column="CREATE_TIME" jdbcType="INTEGER" property="createTime"/>
+        <result column="MODIFIED_TIME" jdbcType="INTEGER" property="modifiedTime"/>
+        <result column="PRODUCT_NAME" jdbcType="VARCHAR" property="productName"/>
+        <result column="PRODUCT_DESC" jdbcType="VARCHAR" property="productDesc"/>
+        <result column="SUPPLY_PRICE" jdbcType="INTEGER" property="supplyPrice"/>
+        <result column="IMG_INFO" jdbcType="VARCHAR" property="imgInfo"/>
+        <result  column="CATEGORY_NAME" jdbcType="VARCHAR" property="categoryName"/>
+        <result  column="BASICUNIT_NAME" jdbcType="VARCHAR" property="basicunitName"/>
+        <result  column="UNIT_NAME"  jdbcType="VARCHAR" property="unitName"/>
+        <result column="DISCOUNT" jdbcType="INTEGER" property="discount"/>
+    </resultMap>
+    <select id="selectAll" resultMap="BaseResultMap">
+        SELECT s.PRODUCT_CODE,s.PRODUCT_NUMBER,s.CREATE_TIME,s.MODIFIED_TIME,s.`STATUS`,p.PRODUCT_NAME,p.PRODUCT_DESC,p.SUPPLY_PRICE,p.IMG_INFO,ca.CATEGORY_NAME,u1.UNIT_NAME as BASICUNIT_NAME,u2.UNIT_NAME,pu.DISCOUNT
+        FROM shopping_cart s
+        LEFT JOIN product p on p.PRODUCT_CODE=s.PRODUCT_CODE
+        LEFT JOIN category ca on p.CATEGORY_ID=ca.CATEGORY_ID
+        LEFT JOIN product_unit pu on pu.PRODUCT_CODE=p.PRODUCT_CODE
+        LEFT JOIN unit u1 on u1.UNIT_ID=pu.UNIT_ID
+        LEFT JOIN unit u2 on u2.UNIT_ID=pu.BASICUNIT_ID
+        WHERE s.USER_NAME=#{userName}
+    </select>
+
+
+</mapper>

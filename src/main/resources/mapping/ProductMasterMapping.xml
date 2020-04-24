@@ -11,6 +11,7 @@
         <result column="SUPPLY_PRICE" jdbcType="INTEGER" property="supplyPrice"/>
         <result  column="BASICUNIT_NAME" jdbcType="VARCHAR" property="basicunitName"/>
         <result  column="UNIT_NAME"  jdbcType="VARCHAR" property="unitName"/>
+        <result column="DISCOUNT" jdbcType="INTEGER" property="discount"/>
         <result column="IMG_INFO" jdbcType="VARCHAR" property="imgInfo"/>
         <result column="STATUS" jdbcType="INTEGER" property="status"/>
     </resultMap>

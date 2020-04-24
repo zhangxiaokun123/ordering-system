@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ly.orderingsystem.mapper.CartMapper">
+    <resultMap id="BaseResultMap" type="com.ly.orderingsystem.entity.Cart">
+        <result column="ID" jdbcType="INTEGER" property="id"/>
+        <result column="USER_NAME" jdbcType="VARCHAR" property="userName"/>
+        <result column="PRODUCT_CODE" jdbcType="INTEGER" property="productCode"/>
+        <result column="PRODUCT_NUMBER" jdbcType="INTEGER" property="productNumber"/>
+        <result column="STATUS" jdbcType="INTEGER" property="status"/>
+        <result column="CREATE_TIME" jdbcType="INTEGER" property="createTime"/>
+        <result column="MODIFIED_TIME" jdbcType="INTEGER" property="modifiedTime"/>
+
+    </resultMap>
+    <insert id="insert" parameterType="com.ly.orderingsystem.entity.Cart">
+        insert into SHOPPING_CART (USER_NAME,PRODUCT_CODE,PRODUCT_NUMBER,STATUS) values
+        (#{userName},#{productCode},#{productNumber},#{status})
+    </insert>
+
+    <select id="selectByPU" resultMap="BaseResultMap">
+        select *
+        from SHOPPING_CART
+        where USER_NAME=#{userName} and PRODUCT_CODE=#{productCode}
+    </select>
+
+    <update id="updateByPU" parameterType="com.ly.orderingsystem.entity.Cart">
+        update SHOPPING_CART
+        set PRODUCT_NUMBER=#{productNumber}
+        where USER_NAME=#{userName} and PRODUCT_CODE=#{productCode}
+    </update>
+
+</mapper>

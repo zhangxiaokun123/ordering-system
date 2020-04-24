@@ -19,9 +19,15 @@
 
 
     <insert id="insert" parameterType="com.ly.orderingsystem.entity.User">
-        insert into USER_TABLE (USERNAME,PASSWORD,UNAME,MAIL,PHONE,REMARK,STATUS)
-        values (#{userName},#{passWord},#{uname},#{mail},#{phone},#{remark},#{status})
+        insert into USER_TABLE (USERNAME,PASSWORD,UNAME,MAIL,PHONE,REMARK,)
+        values (#{userName},#{passWord},#{uname},#{mail},#{phone},#{remark})
     </insert>
+
+    <update id="update">
+        update USER_TABLE
+        set PASSWORD=#{passWord}
+        where USERNAME=#{userName}
+    </update>
 
 
 </mapper>
