@@ -22,8 +22,8 @@ public class CartServiceImp implements CartService {
     public String addCart(Integer productCode, Integer productNumber, HttpSession session) {
         //先判断是否为登录状态,未登录不可添加商品
         Object userObj=session.getAttribute("userName");
-        String userName=userObj.toString();
         if (userObj!=null){
+            String userName=userObj.toString();
             //如果购物车中已存在该商品则只增加商品数量
             Cart cart1=cartMapper.selectByPU(productCode,userName);
             if(cart1!=null) {
@@ -75,9 +75,25 @@ public class CartServiceImp implements CartService {
     @Override
     public List<CartMaster> getCarts(HttpSession session) {
         Object userObj=session.getAttribute("userName");
+        if (userObj!=null){
         String userName=userObj.toString();
         return cartMasterMapper.selectAll(userName);
+        }else {
+            return null;
+        }
     }
 
+    @Override
+    public String deleteCart(Integer productCode, HttpSession session) {
+        Object userObj=session.getAttribute("userName");
+        String userName=userObj.toString();
+         Integer i=cartMapper.delete(userName,productCode);
+         if (i>0){
+             String msg=String.format("删除成功");
+             return msg;
+         }else {
+             return String.format("删除失败");
+         }
+    }
 
 }

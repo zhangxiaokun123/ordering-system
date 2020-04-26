@@ -11,4 +11,6 @@ public interface CartService {
     void updateProductNumber(Integer productCode, Integer productNumber, HttpSession session);
 
     List<CartMaster> getCarts(HttpSession session);
+
+    String deleteCart(Integer productCode, HttpSession session);
 }

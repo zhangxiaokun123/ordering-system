@@ -10,4 +10,6 @@ public interface CartMapper {
     Cart selectByPU(Integer productCode, String userName);
 
     Integer updateByPU(Cart cart1);
+
+    Integer delete(String userName, Integer productCode);
 }

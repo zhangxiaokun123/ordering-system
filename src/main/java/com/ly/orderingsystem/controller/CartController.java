@@ -42,4 +42,12 @@ public class CartController {
     public List<CartMaster> getCarts(HttpSession session){
         return cartService.getCarts(session);
     }
+
+    //删除购物车中的商品
+  @RequestMapping("deleteCart")
+    public AjaxResult  deleteCart(@RequestParam Integer productCode,
+                                  HttpSession session){
+        String msg=cartService.deleteCart(productCode,session);
+        return ResultFactory.buildFailResult(msg);
+  }
 }

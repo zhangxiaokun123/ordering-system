@@ -12,8 +12,8 @@
 
     </resultMap>
     <insert id="insert" parameterType="com.ly.orderingsystem.entity.Cart">
-        insert into SHOPPING_CART (USER_NAME,PRODUCT_CODE,PRODUCT_NUMBER,STATUS) values
-        (#{userName},#{productCode},#{productNumber},#{status})
+        insert into SHOPPING_CART (USER_NAME,PRODUCT_CODE,PRODUCT_NUMBER) values
+        (#{userName},#{productCode},#{productNumber})
     </insert>
 
     <select id="selectByPU" resultMap="BaseResultMap">
@@ -27,5 +27,10 @@
         set PRODUCT_NUMBER=#{productNumber}
         where USER_NAME=#{userName} and PRODUCT_CODE=#{productCode}
     </update>
+
+    <delete id="delete">
+        delete from SHOPPING_CART
+        where USER_NAME=#{userName} and PRODUCT_CODE=#{productCode}
+    </delete>
 
 </mapper>
