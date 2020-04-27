@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ly.orderingsystem.mapper.OrderDetalMapper">
+    <resultMap id="BaseResultMap" type="com.ly.orderingsystem.entity.OrderDetail">
+        <result column="ORDER_SN" jdbcType="VARCHAR" property="orderSn"/>
+        <result column="PRODUCT_CODE" jdbcType="INTEGER" property="productCode"/>
+        <result column="PRODUCT_CNT" jdbcType="INTEGER" property="productCnt"/>
+        <result column="ORDER_MONEY" jdbcType="INTEGER" property="orderMoney"/>
+        <result column="PRODUCT_NAME" jdbcType="VARCHAR" property="productName"/>
+    </resultMap>
+    <insert id="insert" parameterType="com.ly.orderingsystem.entity.OrderDetail">
+        insert into ORDER_DETAIL
+        (ORDER_SN,PRODUCT_CODE,PRODUCT_CNT,ORDER_MONEY,PRODUCT_NAME)
+        values (#{orderSn},#{productCode},#{productCnt},#{orderMoney},#{productName})
+    </insert>
+</mapper>

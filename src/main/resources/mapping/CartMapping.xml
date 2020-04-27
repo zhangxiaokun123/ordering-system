@@ -33,4 +33,8 @@
         where USER_NAME=#{userName} and PRODUCT_CODE=#{productCode}
     </delete>
 
+    <delete id="deleteByUserName">
+         delete from SHOPPING_CART
+        where USER_NAME=#{userName}
+    </delete>
 </mapper>

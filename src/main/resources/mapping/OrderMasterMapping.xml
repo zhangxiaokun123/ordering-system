@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ly.orderingsystem.mapper.OrderMasterMapper">
+    <resultMap id="BaseResultMap" type="com.ly.orderingsystem.entity.OrderMaster">
+        <result column="ORDER_SN" jdbcType="INTEGER" property="orderSn"/>
+        <result column="USER_NAME" jdbcType="VARCHAR" property="userName"/>
+        <result column="PAYMENT_METHOD" jdbcType="VARCHAR" property="paymentMethod"/>
+        <result column="ORDER_MONEY" jdbcType="VARCHAR" property="orderMoney"/>
+        <result column="CREATE_TIME" jdbcType="INTEGER" property="createTime"/>
+        <result column="PAY_TIME" jdbcType="INTEGER" property="payTime"/>
+        <result column="ORDER_STATUS" jdbcType="INTEGER" property="orderStatus"/>
+        <result column="MODIFIED_TIME" jdbcType="VARCHAR" property="modifiedTime"/>
+        <result column="UNAME" jdbcType="VARCHAR" property="uname"/>
+    </resultMap>
+    <insert id="insert" parameterType="com.ly.orderingsystem.entity.OrderMaster">
+        insert into ORDER_MASTER
+        (ORDER_SN,USER_NAME,PAYMENT_METHOD,ORDER_MONEY,ORDER_STATUS,UNAME)
+        values (#{orderSn},#{userName},#{paymentMethod},#{orderMoney},#{orderStatus},#{uname})
+    </insert>
+
+    <update id="updateOrderStatus">
+        update  ORDER_MASTER
+        set ORDER_STATUS=#{orderStatus}
+        where ORDER_SN=#{orderSn}
+    </update>
+
+</mapper>
